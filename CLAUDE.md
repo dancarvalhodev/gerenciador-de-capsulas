@@ -15,7 +15,7 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 ## Estado atual
 - Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.
 - `app.js` ainda tem o código herdado do claude.ai: `dbStore`/`window.claude`, `localStore`, `lsGet`/`lsSet` e o `#banner` amarelo. Tudo isso sai no passo 3, quando o Firestore entrar.
-- Ainda não existe `firebase-config.js` nem `firestore.rules`.
+- Passo 2 concluído: projeto Firebase criado, app Web registrado (`firebase-config.js`), login Google ativado, `dancarvalhodev.github.io` nos domínios autorizados, Firestore criado em `southamerica-east1` no modo produção e `firestore.rules` publicado no console.
 - A branch local é `master`; o deploy do Pages será pela `main`.
 
 ## Arquitetura (alvo)
@@ -35,6 +35,7 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 `id` = id do documento no Firestore. `barras` vai de 1 a 7.
 
 ## Firebase
+- Projeto: `minhas-capsulas`. GitHub do usuário: `dancarvalhodev` (Pages em `dancarvalhodev.github.io`, que deve estar nos domínios autorizados do Auth).
 - `firebase-config.js` contém chaves públicas do app Web; pode ser commitado. A segurança fica em `firestore.rules` (só o dono do `uid` lê/escreve `users/{uid}` e `users/{uid}/capsulas`).
 - Config do console (provedor Google, domínios autorizados, regras) é feita pelo usuário; o Claude orienta, não tem acesso.
 - **O usuário não conhece Firebase.** Ao explicar qualquer coisa do Firebase, use português simples, sem jargão, com analogias e um passo de cada vez (veja o critério no passo 2 do plano).
