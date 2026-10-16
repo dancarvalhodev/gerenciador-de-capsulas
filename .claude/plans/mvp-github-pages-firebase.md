@@ -129,14 +129,14 @@ service cloud.firestore {
 3. ✅ **Trocar o armazenamento**: Firebase com login Google, preferência da máquina em `users/{uid}`, código do claude.ai e `localStorage` removidos. JS dividido em módulos com nomes claros e comentários. (Falta o teste no navegador, que fica no passo 6.)
 4. **Organizar os arquivos e escrever a documentação** (README junto). **Este é o próximo passo.**
 
-   **4a. Organizar por categoria** (só mover; o comportamento não muda) (entregue, aguardando conferência):
+   ✅ **4a. Organizar por categoria** (só mover; o comportamento não muda):
    - Mover os arquivos para a estrutura alvo descrita em "Estrutura de arquivos": `css/`, `js/`, `firebase/` e `docs/`.
    - Ajustar os caminhos: no `index.html`, `css/styles.css` e `js/app.js`. Os imports entre arquivos de `js/` continuam iguais, porque ficam todos na mesma pasta.
    - Criar um `.gitignore` mínimo (`.DS_Store`, `Thumbs.db`, `.vscode/`).
    - Atualizar no `CLAUDE.md` os caminhos, a estrutura e o comando do Prettier.
    - Conferir: o servidor local entrega todos os arquivos (status 200) e a sintaxe dos módulos continua válida.
 
-   **4b. Documentação** em `docs/`, escrita a partir dos comentários atuais do JS:
+   **4b. Documentação** em `docs/`, escrita a partir dos comentários atuais do JS (entregue, aguardando conferência):
    - `docs/firebase.md`: o Firebase explicado para quem nunca usou.
      1. A analogia (casa, endereço, porteiro, armário, gaveta, ficha) numa tabela curta: termo do Firebase → analogia → onde aparece no código.
      2. O endereço (`firebase-config.js`): por que pode ser público e a restrição por site no Google Cloud.

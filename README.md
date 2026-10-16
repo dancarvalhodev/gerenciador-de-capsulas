@@ -1,26 +1,26 @@
 # Minhas Cápsulas
 
-Catálogo pessoal de cápsulas Nescafé Dolce Gusto compradas avulsas (caixa personalizada), para saber como preparar cada uma e controlar o estoque. Os dados ficam no Firebase e sincronizam entre aparelhos; o site é publicado no GitHub Pages.
+Catálogo pessoal de cápsulas Nescafé Dolce Gusto: como preparar cada sabor (quantas barras de água, quente ou fria, em que ordem) e quantas bebidas ainda tem em estoque. Os dados ficam na sua conta Google, pelo Firebase, e aparecem iguais no celular e no computador.
 
-> Plano de implementação: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-github-pages-firebase.md)
+**Site:** https://dancarvalhodev.github.io/gerenciador-de-capsulas/ (no ar depois que o GitHub Pages for ativado)
 
 ## O que o app faz
-- **Cartão por sabor**: nome, tipo (café puro / com leite / chocolate / chá e outros), água quente ou fria, e as cápsulas em ordem (bebidas de 2 cápsulas: normalmente leite primeiro, depois café ou chocolate).
-- **Barras de água** de 1 a 7 (a escala impressa na tampa), desenhadas como os LEDs do painel da máquina, com ml aproximados (30 ml por barra).
-- **Modo da máquina** (seletor no topo):
-  - *Com seletor de nível* (Mini Me, Genio S, Infinissima Touch): destaca as barras.
-  - *Manual* (Piccolo XS, Oblo, Esperta, Infinissima): destaca "pare em ≈X ml".
-- **Estoque** em bebidas: botões − / +, e "Fazer uma" desconta 1. Selos "Acabando" (≤ 2) e "Esgotado" (0); esgotados vão para o fim da lista.
-- **Filtros**: Todas, Café puro, Com leite, Chocolate, Chás e outros, Gelados, Acabando. Também tem busca por nome.
-- **Adicionar da lista**: lista pronta de sabores com quantidade por sabor; soma ao estoque se o sabor já existe.
-- **Nova cápsula / Editar**: formulário em `<dialog>`; a exclusão pede um segundo toque para confirmar.
-- Tema claro e escuro automáticos, layout responsivo (funciona no celular).
+- **Cartão por sabor** com as cápsulas na ordem de uso e as barras de água (1 a 7, a escala da tampa), com os ml aproximados.
+- **Modo da máquina:** com seletor de nível, o cartão destaca as barras; na manual, destaca "pare em ≈X ml".
+- **Estoque:** botões − e +, e "Fazer uma" desconta 1. Selos "Acabando" e "Esgotado".
+- **Filtros e busca** por tipo, gelados, acabando e nome.
+- **Adicionar da lista:** sabores prontos, com a quantidade que chegou na caixa.
+- Tema claro e escuro, funciona no celular.
 
-## Aviso
-As barras e os valores da lista pronta são **sugestões**, não dados oficiais. Confira a tampa de cada cápsula e edite o cartão se for diferente.
+As barras da lista pronta são **sugestões**, não dados oficiais. Confira a tampa da cápsula e edite o cartão se for diferente.
 
-## Rodar localmente
+## Rodar no seu computador
 ```bash
 python3 -m http.server 8000
 ```
-Abra `http://localhost:8000`. É preciso servir por HTTP (não abrir o arquivo direto) por causa dos módulos JS e do login do Firebase.
+Rode na pasta do projeto e abra `http://localhost:8000`. Abrir o `index.html` direto, sem o servidor, não funciona: os arquivos de JavaScript e o login do Google precisam de um endereço `http://`.
+
+## Documentação
+- [O Firebase deste app](docs/firebase.md): login, regras de segurança e onde os dados ficam, explicados com analogias.
+- [Como o app funciona](docs/como-o-app-funciona.md): o papel de cada arquivo e o caminho de um clique até o dado salvo.
+- [Plano de implementação](.claude/plans/mvp-github-pages-firebase.md)
