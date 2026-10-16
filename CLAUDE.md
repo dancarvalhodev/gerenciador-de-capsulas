@@ -6,7 +6,7 @@
 Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-github-pages-firebase.md). Leia antes de implementar e mantenha-o atualizado quando uma decisão mudar.
 
 ## Regras de trabalho
-- **MVP sempre.** Faça o mínimo que entrega o objetivo. Ideias extras vão para "Depois do MVP" no plano, não para o código.
+- **MVP sempre.** Faça o mínimo que entrega o objetivo. Ideias extras vão para o "Roadmap" no plano, não para o código.
 - **Sem build e sem npm.** HTML, CSS e JS vanilla. Única dependência externa: Firebase JS SDK modular via CDN do gstatic, com versão fixa, e Google Fonts.
 - **Arquivos separados** (módulos ES, sem build): marcação em `index.html`, estilos em `styles.css`, config em `firebase-config.js`, e o JS dividido por assunto:
   - `firebase.js`: único lugar que importa o SDK (login, preferências em `users/{uid}`, `acessarCapsulasDoUsuario`);
@@ -16,8 +16,6 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
   Não colocar `<style>` nem `<script>` inline no HTML.
 - **Código legível para quem não conhece Firebase.** Nomes em português que dizem a ação (`entrarComGoogle`, `observarPreferencias`, `quantidadeEmEstoque`), sem abreviações de uma letra fora de callbacks curtos. Comentar o *porquê* e toda chamada ao Firebase, usando a analogia casa / porteiro / armário / gaveta / ficha (cabeçalho de `firebase.js`).
 - **O Claude NUNCA faz commit (nem push) por conta própria.** Quando pedido, apenas gera a mensagem; quem commita é o usuário. Formato: gitmoji + resumo em português, corpo com tópicos e, no fim, `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
-- Não adicionar logotipo nem identidade visual da Nescafé/Dolce Gusto; não fazer scraping do site da marca; cápsulas NEO estão fora do escopo.
-
 ## Estado atual
 - Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.
 - Passo 3 implementado (falta o usuário testar no navegador): Firebase SDK 12.4.0 via gstatic, login Google por popup, `acessarCapsulasDoUsuario` em `users/{uid}/capsulas`, máquina em `users/{uid}.maquina`, estoque com `increment()` (exportado como `somarNoArmario`). Código do claude.ai e `localStorage` removidos.
