@@ -18,12 +18,12 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 - **O Claude NUNCA faz commit (nem push) por conta própria.** Quando pedido, apenas gera a mensagem; quem commita é o usuário. Formato: gitmoji + resumo em português, corpo com tópicos e, no fim, `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 ## Estado atual
 - Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.
-- Passo 3 implementado (falta o usuário testar no navegador): Firebase SDK 12.4.0 via gstatic, login Google por popup, `acessarCapsulasDoUsuario` em `users/{uid}/capsulas`, máquina em `users/{uid}.maquina`, estoque com `increment()` (exportado como `somarNoArmario`). Código do claude.ai e `localStorage` removidos.
+- Passo 3 concluído e testado: Firebase SDK 12.4.0 via gstatic, login Google por popup, `acessarCapsulasDoUsuario` em `users/{uid}/capsulas`, máquina em `users/{uid}.maquina`, estoque com `increment()` (exportado como `somarNoArmario`). Código do claude.ai e `localStorage` removidos.
 - Telas: `#login` (deslogado), `#app` + `#conta` no cabeçalho (logado). A regra `[hidden] { display: none !important; }` no CSS é necessária porque `.empty` e `.app` usam `display: grid`.
 - Passo 2 concluído: projeto Firebase criado, app Web registrado (`firebase-config.js`), login Google ativado, `dancarvalhodev.github.io` nos domínios autorizados, Firestore criado em `southamerica-east1` no modo produção e `firestore.rules` publicado no console.
 - Passo 4 concluído: arquivos em `css/`, `js/` e `firebase/` (só `index.html` na raiz), `.gitignore`, documentação em `docs/firebase.md` e `docs/como-o-app-funciona.md`, README curto e comentários do JS de uma linha apontando para `docs/`.
 - Passo 5 concluído: GitHub Pages ativo pela `master`, pasta raiz, em https://dancarvalhodev.github.io/gerenciador-de-capsulas/. O site abre e o login Google funciona. Cada push na `master` atualiza o site.
-- Próximo: passo 6 (teste completo no navegador, que cobre também os passos 3 e 4).
+- Passo 6 concluído: teste completo no navegador (Firefox, site publicado) sem falhas. **O MVP está entregue.** Próximas ideias vão para o "Roadmap" do plano.
 - Repositório: https://github.com/dancarvalhodev/gerenciador-de-capsulas, branch `master`.
 
 ## Arquitetura (alvo)
