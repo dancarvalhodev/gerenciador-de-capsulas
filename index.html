@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Minhas Cápsulas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div>
+          <h1>Minhas Cápsulas</h1>
+          <p class="sub">
+            Quantas barras de água, quente ou gelado, e em que ordem colocar cada cápsula. Toque em
+            “Fazer uma” para descontar do estoque.
+          </p>
+        </div>
+        <label class="machine" for="machine">
+          <span class="label">Sua máquina</span>
+          <select id="machine">
+            <option value="auto">
+              Com seletor de nível (Mini Me, Genio S, Infinissima Touch…)
+            </option>
+            <option value="manual">Manual (Piccolo XS, Oblo, Esperta, Infinissima…)</option>
+          </select>
+        </label>
+      </header>
+
+      <div class="tip" id="tip"></div>
+      <div class="banner" id="banner" hidden>
+        Salvando só neste navegador: o armazenamento compartilhado não está disponível nesta
+        visualização.
+      </div>
+
+      <div class="summary" id="summary"></div>
+
+      <div class="toolbar">
+        <div class="chips" id="filters" role="group" aria-label="Filtrar">
+          <button class="chip" data-f="todas" aria-pressed="true">Todas</button>
+          <button class="chip" data-f="cafe" aria-pressed="false">Café puro</button>
+          <button class="chip" data-f="leite" aria-pressed="false">Com leite</button>
+          <button class="chip" data-f="choco" aria-pressed="false">Chocolate</button>
+          <button class="chip" data-f="cha" aria-pressed="false">Chás e outros</button>
+          <button class="chip" data-f="frio" aria-pressed="false">Gelados</button>
+          <button class="chip" data-f="acabando" aria-pressed="false">Acabando</button>
+        </div>
+        <input
+          type="search"
+          id="q"
+          class="search"
+          placeholder="Buscar sabor…"
+          aria-label="Buscar sabor"
+        />
+        <button class="btn" id="openPick">Adicionar da lista</button>
+        <button class="btn primary" id="openNew">Nova cápsula</button>
+      </div>
+
+      <div id="list"></div>
+      <p class="fine">
+        As barras vêm da tampa de cada cápsula (escala de 1 a 7). Os valores da lista pronta são
+        sugestões; se a tampa disser outra coisa, edite o cartão. Os ml são aproximados, cerca de 30
+        ml por barra.
+      </p>
+    </div>
+
+    <dialog id="dlgEdit">
+      <form class="dlg" id="formEdit" method="dialog">
+        <div class="dlg-head">
+          <h3 id="editTitle">Nova cápsula</h3>
+          <button type="button" class="btn" data-close>Fechar</button>
+        </div>
+        <label class="field" for="fNome">
+          <span class="label">Nome do sabor</span>
+          <input type="text" id="fNome" required maxlength="60" placeholder="Ex.: Cappuccino" />
+        </label>
+        <div class="row2">
+          <label class="field" for="fCat">
+            <span class="label">Tipo</span>
+            <select id="fCat">
+              <option value="cafe">Café puro</option>
+              <option value="leite">Café com leite</option>
+              <option value="choco">Chocolate</option>
+              <option value="cha">Chá e outros</option>
+            </select>
+          </label>
+          <div class="field">
+            <span class="label">Água</span>
+            <div class="seg" id="fTemp" role="group" aria-label="Temperatura da água">
+              <button type="button" data-v="quente" aria-pressed="true">Quente</button>
+              <button type="button" data-v="frio" aria-pressed="false">Fria</button>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="label">Cápsulas por bebida</span>
+          <div class="seg" id="fQtd" role="group" aria-label="Cápsulas por bebida">
+            <button type="button" data-v="1" aria-pressed="true">1 cápsula</button>
+            <button type="button" data-v="2" aria-pressed="false">2 cápsulas</button>
+          </div>
+        </div>
+        <div id="stepEdits" class="steps"></div>
+        <div class="row2">
+          <label class="field" for="fEstoque">
+            <span class="label">Bebidas em estoque</span>
+            <input type="number" id="fEstoque" min="0" max="999" value="0" />
+          </label>
+          <label class="field" for="fNota">
+            <span class="label">Observação</span>
+            <input
+              type="text"
+              id="fNota"
+              maxlength="120"
+              placeholder="Ex.: fica melhor com menos água"
+            />
+          </label>
+        </div>
+        <div class="dlg-foot">
+          <button type="button" class="btn danger" id="btnDel" hidden>Excluir</button>
+          <span></span>
+          <button type="submit" class="btn primary" id="btnSave">Salvar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="dlgPick">
+      <div class="dlg">
+        <div class="dlg-head">
+          <h3>Adicionar da lista</h3>
+          <button type="button" class="btn" data-close>Fechar</button>
+        </div>
+        <p class="fine">
+          Marque quantas bebidas de cada sabor chegaram na caixa. Uma bebida de 2 cápsulas conta
+          como 1.
+        </p>
+        <div class="picklist" id="picklist"></div>
+        <div class="dlg-foot">
+          <span class="fine" id="pickCount">Nada selecionado</span>
+          <button class="btn primary" id="pickAdd" disabled>Adicionar ao catálogo</button>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>

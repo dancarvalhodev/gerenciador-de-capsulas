@@ -9,10 +9,13 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 - **MVP sempre.** Faça o mínimo que entrega o objetivo. Ideias extras vão para "Depois do MVP" no plano, não para o código.
 - **Sem build e sem npm.** HTML, CSS e JS vanilla. Única dependência externa: Firebase JS SDK modular via CDN do gstatic, com versão fixa, e Google Fonts.
 - **Arquivos separados**: marcação em `index.html`, estilos em `styles.css`, lógica em `app.js`, config em `firebase-config.js`. Não colocar `<style>` nem `<script>` inline no HTML.
+- **O Claude NUNCA faz commit (nem push) por conta própria.** Quando pedido, apenas gera a mensagem; quem commita é o usuário. Formato: gitmoji + resumo em português, corpo com tópicos e, no fim, `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 - Não adicionar logotipo nem identidade visual da Nescafé/Dolce Gusto; não fazer scraping do site da marca; cápsulas NEO estão fora do escopo.
 
 ## Estado atual
-- `capsulas.html`: protótipo de arquivo único vindo do claude.ai (sem `<!doctype>`/`<head>`/`<body>`, CSS e JS inline, usa `window.claude` ou `localStorage`, que serão removidos). É a referência visual e funcional até `index.html` substituí-lo.
+- Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.
+- `app.js` ainda tem o código herdado do claude.ai: `dbStore`/`window.claude`, `localStore`, `lsGet`/`lsSet` e o `#banner` amarelo. Tudo isso sai no passo 3, quando o Firestore entrar.
+- Ainda não existe `firebase-config.js` nem `firestore.rules`.
 - A branch local é `master`; o deploy do Pages será pela `main`.
 
 ## Arquitetura (alvo)
@@ -35,6 +38,10 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 - `firebase-config.js` contém chaves públicas do app Web; pode ser commitado. A segurança fica em `firestore.rules` (só o dono do `uid` lê/escreve `users/{uid}` e `users/{uid}/capsulas`).
 - Config do console (provedor Google, domínios autorizados, regras) é feita pelo usuário; o Claude orienta, não tem acesso.
 - **O usuário não conhece Firebase.** Ao explicar qualquer coisa do Firebase, use português simples, sem jargão, com analogias e um passo de cada vez (veja o critério no passo 2 do plano).
+
+## Formatação
+- Prettier com `.prettierrc` (largura 100): `npx --yes prettier@3.3.3 --write index.html styles.css app.js`. Não vira dependência do projeto.
+- `MODELOS` em `app.js` usa `// prettier-ignore` para manter um sabor por linha.
 
 ## Rodar e testar
 - `python3 -m http.server 8000` na raiz e abrir `http://localhost:8000` (módulos ES e login exigem HTTP).
