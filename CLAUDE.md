@@ -16,7 +16,7 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 - Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.
 - `app.js` ainda tem o código herdado do claude.ai: `dbStore`/`window.claude`, `localStore`, `lsGet`/`lsSet` e o `#banner` amarelo. Tudo isso sai no passo 3, quando o Firestore entrar.
 - Passo 2 concluído: projeto Firebase criado, app Web registrado (`firebase-config.js`), login Google ativado, `dancarvalhodev.github.io` nos domínios autorizados, Firestore criado em `southamerica-east1` no modo produção e `firestore.rules` publicado no console.
-- A branch local é `master`; o deploy do Pages será pela `main`.
+- Repositório: https://github.com/dancarvalhodev/gerenciador-de-capsulas, branch `master`. O Pages publicará pela `master`, pasta raiz, em https://dancarvalhodev.github.io/gerenciador-de-capsulas/ (ainda não ativado; o usuário ativa depois).
 
 ## Arquitetura (alvo)
 - **`store`** isola o armazenamento com 4 métodos: `subscribe(cb)`, `add(dados)`, `update(id, patch)`, `remove(id)`. A UI só fala com essa interface. Implementação: `firestoreStore(db, uid)` sobre `users/{uid}/capsulas`.

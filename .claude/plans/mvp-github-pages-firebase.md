@@ -13,7 +13,7 @@ Entregar o menor conjunto que resolve o problema: **catálogo funcionando, sincr
 | Login | **Firebase Auth com Google** (`signInWithPopup`). Um clique, sem senha para gerenciar. |
 | Escopo dos dados | Por usuário: `users/{uid}/capsulas/{id}`. Cada conta vê só os próprios itens. |
 | SDK | Firebase JS SDK modular via CDN (`https://www.gstatic.com/firebasejs/<versão>/firebase-*.js`), versão fixa, com `<script type="module">`. Sem npm. |
-| Hospedagem | GitHub Pages, deploy pela branch `main`, pasta raiz. |
+| Hospedagem | GitHub Pages, deploy pela branch `master`, pasta raiz. URL: https://dancarvalhodev.github.io/gerenciador-de-capsulas/ |
 | Arquivos | HTML, CSS e JS separados: `index.html`, `styles.css`, `app.js`, `firebase-config.js`. |
 | Persistência | **Só Firebase. Nada de `localStorage`** (nem para preferências). |
 | Modo da máquina | Campo `maquina` (`"auto" \| "manual"`) no documento `users/{uid}`; sincroniza entre aparelhos. Padrão `"auto"`. |
@@ -119,7 +119,7 @@ service cloud.firestore {
    - Se algo der errado, explicar o que aconteceu e como resolver, também sem jargão.
 3. **Trocar o armazenamento**: implementar `firestoreStore`, a preferência da máquina em `users/{uid}` e o fluxo de login; remover `dbStore`, `localStore`, `lsGet`/`lsSet`, `window.claude` e `#banner`.
 4. **README.md e `.gitignore`**.
-5. **Publicar**: renomear a branch `master` para `main`, criar o repositório no GitHub, push e ativar Pages (branch `main`, pasta `/`).
+5. **Publicar** (feito pelo usuário): o repositório já existe em https://github.com/dancarvalhodev/gerenciador-de-capsulas. Em Settings → Pages, escolher "Deploy from a branch", branch `master`, pasta `/ (root)`. Cada push na `master` atualiza o site.
 6. **Testar** no navegador (localmente via `python3 -m http.server` e depois na URL do Pages):
    - login e logout;
    - adicionar pela lista;
