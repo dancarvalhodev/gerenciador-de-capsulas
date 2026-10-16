@@ -1,9 +1,4 @@
-// ============================================================================
-// app.js: guarda o estado do app (o que está na tela agora) e reage aos cliques.
-//   - Firebase (login e dados)  -> firebase.js
-//   - HTML de cada pedaço       -> html.js
-//   - Valores fixos e lista     -> dados.js
-// ============================================================================
+// Estado da tela e reação aos cliques. Explicado em docs/como-o-app-funciona.md.
 import {
   observarLogin,
   entrarComGoogle,
@@ -28,8 +23,7 @@ import {
 // Atalho para achar um elemento da página pelo seletor CSS (ex.: "#list").
 const elemento = (seletor) => document.querySelector(seletor);
 
-// Num grupo de botões (filtros, quente/fria...), marca como "apertado" o botão
-// para o qual `estaAtivo(botao)` der verdadeiro, e desmarca os outros.
+// Num grupo de botões, marca como apertado só os que `estaAtivo(botao)` aprovar.
 const marcarBotaoAtivo = (seletorDoGrupo, estaAtivo) =>
   elemento(seletorDoGrupo)
     .querySelectorAll("button")
@@ -175,8 +169,7 @@ elemento("#machine").addEventListener("change", (evento) => {
   salvarPreferencias(idDoUsuario, { maquina: tipoDeMaquina }).catch(console.warn);
 });
 
-// Um único "ouvinte" para todos os botões dos cartões: descobre qual botão foi
-// clicado pelo `data-act` e qual sabor pelo `data-id` do cartão.
+// Um único ouvinte para todos os cartões: `data-act` diz a ação e `data-id`, o sabor.
 elemento("#list").addEventListener("click", async (evento) => {
   if (evento.target.closest("[data-open=pick]")) return abrirListaPronta();
   const botao = evento.target.closest("[data-act]");
@@ -243,8 +236,7 @@ function desenharRascunho() {
     .join("");
 }
 
-// Redesenhar o rascunho apaga o que estava digitado nos campos; por isso,
-// antes de redesenhar, guarda os rótulos digitados no rascunho.
+// Redesenhar apaga o que foi digitado; por isso, guarda os rótulos antes.
 function guardarRotulosDigitados() {
   rascunho.passos.forEach((passo, i) => {
     const campo = elemento("#fRot" + i);

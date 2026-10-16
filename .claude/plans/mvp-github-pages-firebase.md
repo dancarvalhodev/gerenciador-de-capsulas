@@ -136,7 +136,7 @@ service cloud.firestore {
    - Atualizar no `CLAUDE.md` os caminhos, a estrutura e o comando do Prettier.
    - Conferir: o servidor local entrega todos os arquivos (status 200) e a sintaxe dos módulos continua válida.
 
-   **4b. Documentação** em `docs/`, escrita a partir dos comentários atuais do JS (entregue, aguardando conferência):
+   ✅ **4b. Documentação** em `docs/`, escrita a partir dos comentários atuais do JS:
    - `docs/firebase.md`: o Firebase explicado para quem nunca usou.
      1. A analogia (casa, endereço, porteiro, armário, gaveta, ficha) numa tabela curta: termo do Firebase → analogia → onde aparece no código.
      2. O endereço (`firebase-config.js`): por que pode ser público e a restrição por site no Google Cloud.
@@ -160,7 +160,7 @@ service cloud.firestore {
    - Detalhado no conteúdo, enxuto na forma: preferir tabelas e listas a texto corrido. Cada arquivo de `docs/` deve ser lido em até ~5 minutos.
    - Não repetir a mesma explicação em dois lugares: o README aponta para `docs/`.
 
-   **4c. Enxugar os comentários do JS:**
+   **4c. Enxugar os comentários do JS** (entregue, aguardando conferência):
    - As explicações longas (como o cabeçalho de `firebase.js` com a analogia) passam para `docs/firebase.md`.
    - No código ficam comentários curtos, de uma linha, dizendo o que o trecho faz ou por quê, mais um aviso no topo de cada arquivo apontando para a doc. Exemplo: `// Explicado em docs/firebase.md`.
    - Os nomes claros continuam: a doc complementa o código, não substitui nomes ruins.

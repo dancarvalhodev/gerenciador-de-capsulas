@@ -1,4 +1,4 @@
-// Valores fixos do app. Nada aqui fala com o Firebase.
+// Valores fixos do app. Onde mexer em cada um: docs/como-o-app-funciona.md.
 
 // Nome exibido para cada categoria (a chave é o que fica gravado na ficha).
 export const NOMES_DAS_CATEGORIAS = {

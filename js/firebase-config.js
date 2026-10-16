@@ -1,4 +1,4 @@
-// Endereço público do projeto no Firebase. Não é segredo: quem protege os dados é firebase/firestore.rules.
+// Endereço público do projeto no Firebase; não é segredo. Explicado em docs/firebase.md.
 export const firebaseConfig = {
   apiKey: "AIzaSyAX7xSPNvxrS_sGPK8JJbJj-iEFfM3oBEc",
   authDomain: "minhas-capsulas.firebaseapp.com",

@@ -14,7 +14,7 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
   - `html.js`: funções puras que montam HTML (`escaparHTML`, `cartaoDoSaborHTML`, `linhaDaListaProntaHTML`…);
   - `app.js`: estado, `desenharTela()` e eventos.
   Não colocar `<style>` nem `<script>` inline no HTML.
-- **Código legível para quem não conhece Firebase.** Nomes em português que dizem a ação (`entrarComGoogle`, `observarPreferencias`, `quantidadeEmEstoque`), sem abreviações de uma letra fora de callbacks curtos. Comentar o *porquê* e toda chamada ao Firebase, usando a analogia casa / porteiro / armário / gaveta / ficha (cabeçalho de `firebase.js`).
+- **Código legível para quem não conhece Firebase.** Nomes em português que dizem a ação (`entrarComGoogle`, `observarPreferencias`, `quantidadeEmEstoque`), sem abreviações de uma letra fora de callbacks curtos. Comentários curtos, de uma linha: o *porquê* e as chamadas ao Firebase, usando a analogia casa / porteiro / armário / gaveta / ficha. Explicações longas ficam em `docs/` (`docs/firebase.md` tem a tabela da analogia; `docs/como-o-app-funciona.md`, o caminho de um clique), e cada arquivo de `js/` aponta para a sua no topo. Ao mudar um comportamento documentado, atualize o documento junto.
 - **O Claude NUNCA faz commit (nem push) por conta própria.** Quando pedido, apenas gera a mensagem; quem commita é o usuário. Formato: gitmoji + resumo em português, corpo com tópicos e, no fim, `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 ## Estado atual
 - Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.

@@ -1,13 +1,11 @@
-// Funções que só MONTAM o HTML (texto) de cada pedaço da tela a partir dos dados.
-// Não mexem na página nem no Firebase: quem coloca o HTML na tela é o app.js.
+// Monta o HTML de cada pedaço da tela; não mexe na página nem no Firebase.
+// Explicado em docs/como-o-app-funciona.md.
 import { NOMES_DAS_CATEGORIAS, ML_POR_BARRA, LIMITE_ACABANDO } from "./dados.js";
 
 // A escala de água impressa na tampa vai de 1 a 7 barras.
 const NIVEIS_DE_AGUA = [1, 2, 3, 4, 5, 6, 7];
 
-// Troca os caracteres especiais do HTML (< > & " ') por versões "inofensivas".
-// Use em TODO texto digitado pelo usuário: sem isso, um nome como "<b>x</b>"
-// viraria HTML de verdade na tela em vez de aparecer como texto.
+// Use em todo texto digitado pelo usuário: sem isso, "<b>x</b>" viraria HTML de verdade.
 export const escaparHTML = (texto) =>
   String(texto ?? "").replace(
     /[&<>"']/g,
@@ -77,8 +75,7 @@ function seloDeEstoqueHTML(estoque) {
 function passoDePreparoHTML(passo, indice, totalDePassos, tipoDeMaquina) {
   const ml = `≈${passo.barras * ML_POR_BARRA} ml`;
   const barras = comPlural(passo.barras, "barra", "barras");
-  // Máquina manual: o mais importante é até onde encher (ml).
-  // Máquina com seletor: o mais importante é quantas barras marcar.
+  // Na manual o destaque é até onde encher (ml); na com seletor, quantas barras marcar.
   const [destaque, complemento] =
     tipoDeMaquina === "manual" ? [`pare em ${ml}`, barras] : [barras, ml];
   const temDuasCapsulas = totalDePassos > 1;
@@ -98,8 +95,7 @@ export function cartaoDoSaborHTML(capsula, tipoDeMaquina) {
   const passos = capsula.passos ?? [];
   const nome = escaparHTML(capsula.nome);
   const categoria = escaparHTML(NOMES_DAS_CATEGORIAS[capsula.categoria] || "Outro");
-  // `data-id` guarda o id da ficha no Firebase, para o clique saber qual sabor é.
-  // `data-act` diz ao app.js qual ação o botão faz (menos, mais, editar, fazer).
+  // `data-id` (qual ficha) e `data-act` (qual ação) dizem ao app.js o que foi clicado.
   return `
     <article class="card ${gelada ? "cold-c" : "hot-c"} ${esgotado ? "out" : ""}" data-id="${escaparHTML(capsula.id)}">
       <div class="card-head">
