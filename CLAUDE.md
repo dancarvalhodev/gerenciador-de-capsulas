@@ -21,7 +21,10 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 - Passo 3 implementado (falta o usuário testar no navegador): Firebase SDK 12.4.0 via gstatic, login Google por popup, `acessarCapsulasDoUsuario` em `users/{uid}/capsulas`, máquina em `users/{uid}.maquina`, estoque com `increment()` (exportado como `somarNoArmario`). Código do claude.ai e `localStorage` removidos.
 - Telas: `#login` (deslogado), `#app` + `#conta` no cabeçalho (logado). A regra `[hidden] { display: none !important; }` no CSS é necessária porque `.empty` e `.app` usam `display: grid`.
 - Passo 2 concluído: projeto Firebase criado, app Web registrado (`firebase-config.js`), login Google ativado, `dancarvalhodev.github.io` nos domínios autorizados, Firestore criado em `southamerica-east1` no modo produção e `firestore.rules` publicado no console.
-- Repositório: https://github.com/dancarvalhodev/gerenciador-de-capsulas, branch `master`. O Pages publicará pela `master`, pasta raiz, em https://dancarvalhodev.github.io/gerenciador-de-capsulas/ (ainda não ativado; o usuário ativa depois).
+- Passo 4 concluído: arquivos em `css/`, `js/` e `firebase/` (só `index.html` na raiz), `.gitignore`, documentação em `docs/firebase.md` e `docs/como-o-app-funciona.md`, README curto e comentários do JS de uma linha apontando para `docs/`.
+- Passo 5 concluído: GitHub Pages ativo pela `master`, pasta raiz, em https://dancarvalhodev.github.io/gerenciador-de-capsulas/. O site abre e o login Google funciona. Cada push na `master` atualiza o site.
+- Próximo: passo 6 (teste completo no navegador, que cobre também os passos 3 e 4).
+- Repositório: https://github.com/dancarvalhodev/gerenciador-de-capsulas, branch `master`.
 
 ## Arquitetura (alvo)
 - **`acessarCapsulasDoUsuario(uid)`** (em `firebase.js`) isola o armazenamento com 4 ações: `observar(aoMudar, aoFalhar)`, `criar(dados)`, `atualizar(id, campos)`, `excluir(id)`, sobre `users/{uid}/capsulas`. O `app.js` só fala com essa interface.

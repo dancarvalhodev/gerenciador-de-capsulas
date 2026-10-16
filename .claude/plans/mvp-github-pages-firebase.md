@@ -127,7 +127,7 @@ service cloud.firestore {
    - Um passo de cada vez: dizer onde clicar, o que deve aparecer na tela e esperar o usuário confirmar antes de seguir.
    - Se algo der errado, explicar o que aconteceu e como resolver, também sem jargão.
 3. ✅ **Trocar o armazenamento**: Firebase com login Google, preferência da máquina em `users/{uid}`, código do claude.ai e `localStorage` removidos. JS dividido em módulos com nomes claros e comentários. (Falta o teste no navegador, que fica no passo 6.)
-4. **Organizar os arquivos e escrever a documentação** (README junto). **Este é o próximo passo.**
+4. ✅ **Organizar os arquivos e escrever a documentação** (README junto).
 
    ✅ **4a. Organizar por categoria** (só mover; o comportamento não muda):
    - Mover os arquivos para a estrutura alvo descrita em "Estrutura de arquivos": `css/`, `js/`, `firebase/` e `docs/`.
@@ -160,12 +160,12 @@ service cloud.firestore {
    - Detalhado no conteúdo, enxuto na forma: preferir tabelas e listas a texto corrido. Cada arquivo de `docs/` deve ser lido em até ~5 minutos.
    - Não repetir a mesma explicação em dois lugares: o README aponta para `docs/`.
 
-   **4c. Enxugar os comentários do JS** (entregue, aguardando conferência):
+   ✅ **4c. Enxugar os comentários do JS:**
    - As explicações longas (como o cabeçalho de `firebase.js` com a analogia) passam para `docs/firebase.md`.
    - No código ficam comentários curtos, de uma linha, dizendo o que o trecho faz ou por quê, mais um aviso no topo de cada arquivo apontando para a doc. Exemplo: `// Explicado em docs/firebase.md`.
    - Os nomes claros continuam: a doc complementa o código, não substitui nomes ruins.
-5. **Publicar** (feito pelo usuário): o repositório já existe em https://github.com/dancarvalhodev/gerenciador-de-capsulas. Em Settings → Pages, escolher "Deploy from a branch", branch `master`, pasta `/ (root)`. Cada push na `master` atualiza o site.
-6. **Testar** no navegador (localmente via `python3 -m http.server` e depois na URL do Pages):
+5. ✅ **Publicar** (feito pelo usuário): site no ar em https://dancarvalhodev.github.io/gerenciador-de-capsulas/, com login funcionando. O repositório já existe em https://github.com/dancarvalhodev/gerenciador-de-capsulas. Em Settings → Pages, escolher "Deploy from a branch", branch `master`, pasta `/ (root)`. Cada push na `master` atualiza o site.
+6. **Testar** no navegador (localmente via `python3 -m http.server` e depois na URL do Pages). **Este é o próximo passo.**
    - login e logout;
    - adicionar pela lista;
    - editar e excluir;
