@@ -8,7 +8,7 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 ## Regras de trabalho
 - **MVP sempre.** Faça o mínimo que entrega o objetivo. Ideias extras vão para o "Roadmap" no plano, não para o código.
 - **Sem build e sem npm.** HTML, CSS e JS vanilla. Única dependência externa: Firebase JS SDK modular via CDN do gstatic, com versão fixa, e Google Fonts.
-- **Arquivos separados** (módulos ES, sem build): marcação em `index.html`, estilos em `styles.css`, config em `firebase-config.js`, e o JS dividido por assunto:
+- **Arquivos separados por categoria** (módulos ES, sem build): marcação em `index.html` (na raiz, porque o GitHub Pages abre o `index.html` da raiz), estilos em `css/styles.css`, regras de segurança em `firebase/firestore.rules` e o JS em `js/`, dividido por assunto (config em `js/firebase-config.js`):
   - `firebase.js`: único lugar que importa o SDK (login, preferências em `users/{uid}`, `acessarCapsulasDoUsuario`);
   - `dados.js`: constantes e a lista pronta `LISTA_PRONTA`;
   - `html.js`: funções puras que montam HTML (`escaparHTML`, `cartaoDoSaborHTML`, `linhaDaListaProntaHTML`…);
@@ -41,12 +41,12 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 
 ## Firebase
 - Projeto: `minhas-capsulas`. GitHub do usuário: `dancarvalhodev` (Pages em `dancarvalhodev.github.io`, que deve estar nos domínios autorizados do Auth).
-- `firebase-config.js` contém chaves públicas do app Web; pode ser commitado. O GitHub acusa a `apiKey` como vazada: é falso positivo (alerta fechado). A chave está restrita por site no Google Cloud (localhost:8000, dancarvalhodev.github.io, minhas-capsulas.firebaseapp.com); ao testar em outra porta ou domínio, é preciso incluí-lo lá. A segurança fica em `firestore.rules` (só o dono do `uid` lê/escreve `users/{uid}` e `users/{uid}/capsulas`).
+- `js/firebase-config.js` contém chaves públicas do app Web; pode ser commitado. O GitHub acusa a `apiKey` como vazada: é falso positivo (alerta fechado). A chave está restrita por site no Google Cloud (localhost:8000, dancarvalhodev.github.io, minhas-capsulas.firebaseapp.com); ao testar em outra porta ou domínio, é preciso incluí-lo lá. A segurança fica em `firebase/firestore.rules` (só o dono do `uid` lê/escreve `users/{uid}` e `users/{uid}/capsulas`).
 - Config do console (provedor Google, domínios autorizados, regras) é feita pelo usuário; o Claude orienta, não tem acesso.
 - **O usuário não conhece Firebase.** Ao explicar qualquer coisa do Firebase, use português simples, sem jargão, com analogias e um passo de cada vez (veja o critério no passo 2 do plano).
 
 ## Formatação
-- Prettier com `.prettierrc` (largura 100): `npx --yes prettier@3.3.3 --write index.html styles.css *.js`. Não vira dependência do projeto.
+- Prettier com `.prettierrc` (largura 100): `npx --yes prettier@3.3.3 --write index.html css js`. Não vira dependência do projeto.
 - `LISTA_PRONTA` em `dados.js` usa `// prettier-ignore` para manter um sabor por linha.
 - Templates HTML em `html.js` ficam em várias linhas, um elemento por linha, para facilitar a revisão.
 

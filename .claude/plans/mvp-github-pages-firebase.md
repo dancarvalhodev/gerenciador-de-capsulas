@@ -129,7 +129,7 @@ service cloud.firestore {
 3. ✅ **Trocar o armazenamento**: Firebase com login Google, preferência da máquina em `users/{uid}`, código do claude.ai e `localStorage` removidos. JS dividido em módulos com nomes claros e comentários. (Falta o teste no navegador, que fica no passo 6.)
 4. **Organizar os arquivos e escrever a documentação** (README junto). **Este é o próximo passo.**
 
-   **4a. Organizar por categoria** (só mover; o comportamento não muda):
+   **4a. Organizar por categoria** (só mover; o comportamento não muda) (entregue, aguardando conferência):
    - Mover os arquivos para a estrutura alvo descrita em "Estrutura de arquivos": `css/`, `js/`, `firebase/` e `docs/`.
    - Ajustar os caminhos: no `index.html`, `css/styles.css` e `js/app.js`. Os imports entre arquivos de `js/` continuam iguais, porque ficam todos na mesma pasta.
    - Criar um `.gitignore` mínimo (`.DS_Store`, `Thumbs.db`, `.vscode/`).
