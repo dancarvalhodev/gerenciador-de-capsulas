@@ -23,52 +23,66 @@
             “Fazer uma” para descontar do estoque.
           </p>
         </div>
-        <label class="machine" for="machine">
-          <span class="label">Sua máquina</span>
-          <select id="machine">
-            <option value="auto">
-              Com seletor de nível (Mini Me, Genio S, Infinissima Touch…)
-            </option>
-            <option value="manual">Manual (Piccolo XS, Oblo, Esperta, Infinissima…)</option>
-          </select>
-        </label>
+        <div class="conta" id="conta" hidden>
+          <label class="machine" for="machine">
+            <span class="label">Sua máquina</span>
+            <select id="machine">
+              <option value="auto">
+                Com seletor de nível (Mini Me, Genio S, Infinissima Touch…)
+              </option>
+              <option value="manual">Manual (Piccolo XS, Oblo, Esperta, Infinissima…)</option>
+            </select>
+          </label>
+          <div class="user">
+            <span class="fine" id="userEmail"></span>
+            <button type="button" class="btn" id="btnSair">Sair</button>
+          </div>
+        </div>
       </header>
 
-      <div class="tip" id="tip"></div>
-      <div class="banner" id="banner" hidden>
-        Salvando só neste navegador: o armazenamento compartilhado não está disponível nesta
-        visualização.
-      </div>
+      <section class="empty" id="login" hidden>
+        <h3>Entre para ver seu catálogo</h3>
+        <p>
+          Suas cápsulas ficam guardadas na sua conta Google e aparecem iguais no celular e no
+          computador.
+        </p>
+        <button type="button" class="btn primary" id="btnLogin">Entrar com Google</button>
+        <p class="erro" id="loginErro" hidden></p>
+      </section>
 
-      <div class="summary" id="summary"></div>
+      <main class="app" id="app" hidden>
+        <div class="tip" id="tip"></div>
 
-      <div class="toolbar">
-        <div class="chips" id="filters" role="group" aria-label="Filtrar">
-          <button class="chip" data-f="todas" aria-pressed="true">Todas</button>
-          <button class="chip" data-f="cafe" aria-pressed="false">Café puro</button>
-          <button class="chip" data-f="leite" aria-pressed="false">Com leite</button>
-          <button class="chip" data-f="choco" aria-pressed="false">Chocolate</button>
-          <button class="chip" data-f="cha" aria-pressed="false">Chás e outros</button>
-          <button class="chip" data-f="frio" aria-pressed="false">Gelados</button>
-          <button class="chip" data-f="acabando" aria-pressed="false">Acabando</button>
+        <div class="summary" id="summary"></div>
+
+        <div class="toolbar">
+          <div class="chips" id="filters" role="group" aria-label="Filtrar">
+            <button class="chip" data-f="todas" aria-pressed="true">Todas</button>
+            <button class="chip" data-f="cafe" aria-pressed="false">Café puro</button>
+            <button class="chip" data-f="leite" aria-pressed="false">Com leite</button>
+            <button class="chip" data-f="choco" aria-pressed="false">Chocolate</button>
+            <button class="chip" data-f="cha" aria-pressed="false">Chás e outros</button>
+            <button class="chip" data-f="frio" aria-pressed="false">Gelados</button>
+            <button class="chip" data-f="acabando" aria-pressed="false">Acabando</button>
+          </div>
+          <input
+            type="search"
+            id="q"
+            class="search"
+            placeholder="Buscar sabor…"
+            aria-label="Buscar sabor"
+          />
+          <button class="btn" id="openPick">Adicionar da lista</button>
+          <button class="btn primary" id="openNew">Nova cápsula</button>
         </div>
-        <input
-          type="search"
-          id="q"
-          class="search"
-          placeholder="Buscar sabor…"
-          aria-label="Buscar sabor"
-        />
-        <button class="btn" id="openPick">Adicionar da lista</button>
-        <button class="btn primary" id="openNew">Nova cápsula</button>
-      </div>
 
-      <div id="list"></div>
-      <p class="fine">
-        As barras vêm da tampa de cada cápsula (escala de 1 a 7). Os valores da lista pronta são
-        sugestões; se a tampa disser outra coisa, edite o cartão. Os ml são aproximados, cerca de 30
-        ml por barra.
-      </p>
+        <div id="list"></div>
+        <p class="fine">
+          As barras vêm da tampa de cada cápsula (escala de 1 a 7). Os valores da lista pronta são
+          sugestões; se a tampa disser outra coisa, edite o cartão. Os ml são aproximados, cerca de
+          30 ml por barra.
+        </p>
+      </main>
     </div>
 
     <dialog id="dlgEdit">

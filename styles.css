@@ -63,6 +63,9 @@
 * {
   box-sizing: border-box;
 }
+[hidden] {
+  display: none !important;
+}
 body {
   background: var(--bg);
   color: var(--ink);
@@ -122,10 +125,31 @@ header.top {
   align-items: flex-end;
   gap: 16px;
 }
+.conta {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.user .fine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .machine {
   display: grid;
   gap: 4px;
   min-width: 0;
+}
+.app {
+  display: grid;
+  gap: 20px;
 }
 .label {
   font-size: 0.72rem;
@@ -410,12 +434,8 @@ textarea {
   color: var(--muted);
   max-width: 52ch;
 }
-.banner {
-  background: var(--warn-soft);
-  color: var(--warn);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 0.88rem;
+.empty .erro {
+  color: var(--bad);
 }
 .fine {
   color: var(--muted);

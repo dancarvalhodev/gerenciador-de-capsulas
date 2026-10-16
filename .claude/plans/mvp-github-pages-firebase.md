@@ -25,7 +25,10 @@ Entregar o menor conjunto que resolve o problema: **catálogo funcionando, sincr
 ```
 index.html            # só marcação; <link> para styles.css e <script type="module" src="app.js">
 styles.css            # todo o CSS que hoje está no <style> de capsulas.html
-app.js                # lógica do app (render, editor, lista pronta, store do Firestore, login)
+app.js                # estado, render() e eventos (lista, editor, lista pronta, login)
+firebase.js           # único módulo que importa o SDK: login, preferências e acessarCapsulasDoUsuario
+dados.js              # constantes e lista pronta (LISTA_PRONTA)
+html.js               # funções puras que montam o HTML dos cartões, editor e lista pronta
 firebase-config.js    # export const firebaseConfig = { ... } (chaves públicas do projeto Firebase)
 firestore.rules       # regras de segurança (referência; aplicadas pelo console do Firebase)
 README.md
@@ -104,6 +107,7 @@ service cloud.firestore {
    - adicionar um app Web e copiar o `firebaseConfig` para `firebase-config.js`;
    - Authentication → ativar provedor Google → em "Domínios autorizados" adicionar `<usuario>.github.io` (`localhost` já vem autorizado);
    - Firestore → criar banco em modo produção e colar o conteúdo de `firestore.rules`.
+   - Google Cloud → Credenciais → chave de API do navegador → restrição por sites: `http://localhost:8000/*`, `https://dancarvalhodev.github.io/*`, `https://minhas-capsulas.firebaseapp.com/*` (este último é necessário para o popup de login). O alerta de "leaked key" do GitHub é esperado e foi fechado: a chave Web do Firebase é pública por natureza.
 
    **Critério para guiar este passo:** o usuário não conhece Firebase. Ao orientar:
    - Explicar com palavras do dia a dia, em frases curtas, sem jargão. Quando um termo técnico for inevitável (é o nome do botão na tela), dizer o que ele significa logo em seguida.

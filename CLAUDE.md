@@ -8,22 +8,29 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 ## Regras de trabalho
 - **MVP sempre.** Faça o mínimo que entrega o objetivo. Ideias extras vão para "Depois do MVP" no plano, não para o código.
 - **Sem build e sem npm.** HTML, CSS e JS vanilla. Única dependência externa: Firebase JS SDK modular via CDN do gstatic, com versão fixa, e Google Fonts.
-- **Arquivos separados**: marcação em `index.html`, estilos em `styles.css`, lógica em `app.js`, config em `firebase-config.js`. Não colocar `<style>` nem `<script>` inline no HTML.
+- **Arquivos separados** (módulos ES, sem build): marcação em `index.html`, estilos em `styles.css`, config em `firebase-config.js`, e o JS dividido por assunto:
+  - `firebase.js`: único lugar que importa o SDK (login, preferências em `users/{uid}`, `acessarCapsulasDoUsuario`);
+  - `dados.js`: constantes e a lista pronta `LISTA_PRONTA`;
+  - `html.js`: funções puras que montam HTML (`escaparHTML`, `cartaoDoSaborHTML`, `linhaDaListaProntaHTML`…);
+  - `app.js`: estado, `desenharTela()` e eventos.
+  Não colocar `<style>` nem `<script>` inline no HTML.
+- **Código legível para quem não conhece Firebase.** Nomes em português que dizem a ação (`entrarComGoogle`, `observarPreferencias`, `quantidadeEmEstoque`), sem abreviações de uma letra fora de callbacks curtos. Comentar o *porquê* e toda chamada ao Firebase, usando a analogia casa / porteiro / armário / gaveta / ficha (cabeçalho de `firebase.js`).
 - **O Claude NUNCA faz commit (nem push) por conta própria.** Quando pedido, apenas gera a mensagem; quem commita é o usuário. Formato: gitmoji + resumo em português, corpo com tópicos e, no fim, `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 - Não adicionar logotipo nem identidade visual da Nescafé/Dolce Gusto; não fazer scraping do site da marca; cápsulas NEO estão fora do escopo.
 
 ## Estado atual
 - Passo 1 do plano concluído: o protótipo `capsulas.html` foi separado em `index.html`, `styles.css` e `app.js`, sem mudar o comportamento.
-- `app.js` ainda tem o código herdado do claude.ai: `dbStore`/`window.claude`, `localStore`, `lsGet`/`lsSet` e o `#banner` amarelo. Tudo isso sai no passo 3, quando o Firestore entrar.
+- Passo 3 implementado (falta o usuário testar no navegador): Firebase SDK 12.4.0 via gstatic, login Google por popup, `acessarCapsulasDoUsuario` em `users/{uid}/capsulas`, máquina em `users/{uid}.maquina`, estoque com `increment()` (exportado como `somarNoArmario`). Código do claude.ai e `localStorage` removidos.
+- Telas: `#login` (deslogado), `#app` + `#conta` no cabeçalho (logado). A regra `[hidden] { display: none !important; }` no CSS é necessária porque `.empty` e `.app` usam `display: grid`.
 - Passo 2 concluído: projeto Firebase criado, app Web registrado (`firebase-config.js`), login Google ativado, `dancarvalhodev.github.io` nos domínios autorizados, Firestore criado em `southamerica-east1` no modo produção e `firestore.rules` publicado no console.
 - Repositório: https://github.com/dancarvalhodev/gerenciador-de-capsulas, branch `master`. O Pages publicará pela `master`, pasta raiz, em https://dancarvalhodev.github.io/gerenciador-de-capsulas/ (ainda não ativado; o usuário ativa depois).
 
 ## Arquitetura (alvo)
-- **`store`** isola o armazenamento com 4 métodos: `subscribe(cb)`, `add(dados)`, `update(id, patch)`, `remove(id)`. A UI só fala com essa interface. Implementação: `firestoreStore(db, uid)` sobre `users/{uid}/capsulas`.
-- Ajustes de estoque usam `increment()` do Firestore para não perder atualizações concorrentes.
-- Render por template strings + `innerHTML`; **todo texto do usuário passa por `esc()`**. Eventos por delegação (`data-act`, `data-f`, `data-close`…).
+- **`acessarCapsulasDoUsuario(uid)`** (em `firebase.js`) isola o armazenamento com 4 ações: `observar(aoMudar, aoFalhar)`, `criar(dados)`, `atualizar(id, campos)`, `excluir(id)`, sobre `users/{uid}/capsulas`. O `app.js` só fala com essa interface.
+- Ajustes de estoque usam `somarNoArmario(n)` (`increment()` do Firestore) para não perder atualizações concorrentes.
+- Render por template strings + `innerHTML`; **todo texto do usuário passa por `escaparHTML()`**. Eventos por delegação (`data-act`, `data-f`, `data-close`…).
 - **Só Firebase, sem `localStorage`.** O modo da máquina fica no campo `maquina` do documento `users/{uid}` (sincroniza; padrão `"auto"`). O filtro não é persistido (abre em "Todas").
-- Constantes: `CATS`, `ML_POR_BARRA = 30`, `BAIXO = 2`, `MODELOS` (lista pronta, valores estimados).
+- Constantes (`dados.js`): `NOMES_DAS_CATEGORIAS`, `ML_POR_BARRA = 30`, `LIMITE_ACABANDO = 2`, `LISTA_PRONTA` (valores estimados).
 - Tema: tokens CSS em `:root`, modo escuro via `prefers-color-scheme` e `[data-theme]`.
 
 ### Modelo de um item
@@ -36,13 +43,14 @@ Plano atual: [`.claude/plans/mvp-github-pages-firebase.md`](.claude/plans/mvp-gi
 
 ## Firebase
 - Projeto: `minhas-capsulas`. GitHub do usuário: `dancarvalhodev` (Pages em `dancarvalhodev.github.io`, que deve estar nos domínios autorizados do Auth).
-- `firebase-config.js` contém chaves públicas do app Web; pode ser commitado. A segurança fica em `firestore.rules` (só o dono do `uid` lê/escreve `users/{uid}` e `users/{uid}/capsulas`).
+- `firebase-config.js` contém chaves públicas do app Web; pode ser commitado. O GitHub acusa a `apiKey` como vazada: é falso positivo (alerta fechado). A chave está restrita por site no Google Cloud (localhost:8000, dancarvalhodev.github.io, minhas-capsulas.firebaseapp.com); ao testar em outra porta ou domínio, é preciso incluí-lo lá. A segurança fica em `firestore.rules` (só o dono do `uid` lê/escreve `users/{uid}` e `users/{uid}/capsulas`).
 - Config do console (provedor Google, domínios autorizados, regras) é feita pelo usuário; o Claude orienta, não tem acesso.
 - **O usuário não conhece Firebase.** Ao explicar qualquer coisa do Firebase, use português simples, sem jargão, com analogias e um passo de cada vez (veja o critério no passo 2 do plano).
 
 ## Formatação
-- Prettier com `.prettierrc` (largura 100): `npx --yes prettier@3.3.3 --write index.html styles.css app.js`. Não vira dependência do projeto.
-- `MODELOS` em `app.js` usa `// prettier-ignore` para manter um sabor por linha.
+- Prettier com `.prettierrc` (largura 100): `npx --yes prettier@3.3.3 --write index.html styles.css *.js`. Não vira dependência do projeto.
+- `LISTA_PRONTA` em `dados.js` usa `// prettier-ignore` para manter um sabor por linha.
+- Templates HTML em `html.js` ficam em várias linhas, um elemento por linha, para facilitar a revisão.
 
 ## Rodar e testar
 - `python3 -m http.server 8000` na raiz e abrir `http://localhost:8000` (módulos ES e login exigem HTTP).
