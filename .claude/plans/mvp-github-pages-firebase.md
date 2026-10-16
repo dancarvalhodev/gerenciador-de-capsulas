@@ -179,3 +179,4 @@ service cloud.firestore {
 
 ## Roadmap
 - Exportar/Importar JSON como backup.
+- Melhorar a UI e a UX.
